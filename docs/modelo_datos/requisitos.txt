@@ -1,0 +1,22 @@
+Epica: Extraer información de productos de la pagina Agaval.com, almacenar, procesar y posteriormente
+mostrar y analizar.
+
+url: https://www.agaval.com/
+
+HU_1: Definición de la Necesidad
+CA:
+1. Definir necesidad con el equipo funcional
+2. Especificar pagina a realizar scraping
+3. Diseñar la estructura inicial para la solución. 
+
+HU_2: Crear modelo de datos requerido.
+CA:
+1. Definir los campos necesarios para la solución y posterior analisis. 
+2. Presentar arquitectura con la solución.
+
+HU_3: Crear programa con python y hacer conexión con BD.
+CA:
+1. Crear repositorio con archivos necesarios. 
+2. Crear conexión con BD.
+3. Crear esquema y tabla.
+4. Poblar tabla con información de prueba. 
