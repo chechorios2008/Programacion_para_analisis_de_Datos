@@ -58,17 +58,27 @@ class Modelo:
             print(f"Ocurrió un error inesperado al crear la tabla: {e}")
 
 
-    def insert_df(self,ruta_insumo="", nombre_tabla="", tipo_insert='append',tipo="xlsx"):
+    def insert_df(self, df, nombre_tabla, tipo_insert='append'):
+        """
+        Inserta un DataFrame en la tabla especificada de la base de datos.
+
+        Args:
+            df (pd.DataFrame): DataFrame a insertar.
+            nombre_tabla (str): Nombre de la tabla de destino.
+            tipo_insert (str): Comportamiento en caso de existir datos ('append', 'replace', etc.).
+        """
         fecha_actual = datetime.now()
         try:
-            df = pd.read_excel(ruta_insumo,index_col=False)
+            # Agregar la columna de fecha de extracción al DataFrame
             df["f_extraccion"] = fecha_actual
-            print("Se creo el dataframe")
-        except SQLAlchemyError as e:
-            print("No se creo el dataframe {}".format(e))
+            print("Se creó el DataFrame con columna de fecha de extracción")
+        except Exception as e:
+            print(f"Error al preparar el DataFrame: {e}")
+            return
+
         try:
-            #df.to_sql(nombre_tabla, con=self.conection,schema=None,  if_exists=tipo_insert, index=False)
+            # Insertar el DataFrame en la base de datos
             df.to_sql(nombre_tabla, con=self.conection, schema=self.schema, if_exists=tipo_insert, index=False)
-            print("Se inserto correctamente en {}".format(nombre_tabla))
+            print(f"Se insertó correctamente en {nombre_tabla}")
         except SQLAlchemyError as e:
-            print("No se inserto en {} error {}".format(nombre_tabla, e))
+            print(f"No se pudo insertar en {nombre_tabla}. Error: {e}")
