@@ -18,7 +18,7 @@ class Modelo:
     def conect(self):
         try:
             self.conection = create_engine(
-                f'postgresql+psycopg2://{self.user}:{self.password}@{self.host}:{self.port}/{self.nombredb}'
+                f"postgresql+psycopg2://{self.user}:{self.password}@{self.host}:{self.port}/{self.nombredb}"
             )
             with self.conection.connect() as connection:
                 print("Conexión exitosa")
@@ -29,9 +29,9 @@ class Modelo:
 
     def create_schema(self, nombre_schema=""):
         try:
-            nombre_schema = nombre_schema.replace(".","")
+            nombre_schema = nombre_schema.replace(".", "")
             with self.conection.connect() as conexion:
-                create_schema = f'CREATE SCHEMA IF NOT EXISTS {nombre_schema};'
+                create_schema = f"CREATE SCHEMA IF NOT EXISTS {nombre_schema};"
                 conexion = conexion.execution_options(isolation_level="AUTOCOMMIT")
                 conexion.execute(text(create_schema))
                 print("Creación de esquema exitosa")
@@ -40,14 +40,13 @@ class Modelo:
         except Exception as e:
             print(f"Ocurrió un error inesperado al crear el esquema: {e}")
 
-
-    def create_table(self, nombre_tbl="", ruta_sql="",schema="",columnas=""):
+    def create_table(self, nombre_tbl="", ruta_sql="", schema="", columnas=""):
         try:
-            with open(ruta_sql, 'r') as file:
+            with open(ruta_sql, "r") as file:
                 script_tabla = file.read()
             with self.conection.connect() as conexion:
                 conexion = conexion.execution_options(isolation_level="AUTOCOMMIT")
-                script_tabla = script_tabla.format(schema,nombre_tbl,columnas)
+                script_tabla = script_tabla.format(schema, nombre_tbl, columnas)
                 conexion.execute(text(script_tabla))
                 print("Creación exitosa de tabla")
         except FileNotFoundError as e:
@@ -57,8 +56,7 @@ class Modelo:
         except Exception as e:
             print(f"Ocurrió un error inesperado al crear la tabla: {e}")
 
-
-    def insert_df(self, df, nombre_tabla, tipo_insert='append'):
+    def insert_df(self, df, nombre_tabla, tipo_insert="append"):
         """
         Inserta un DataFrame en la tabla especificada de la base de datos.
 
@@ -67,18 +65,15 @@ class Modelo:
             nombre_tabla (str): Nombre de la tabla de destino.
             tipo_insert (str): Comportamiento en caso de existir datos ('append', 'replace', etc.).
         """
-        fecha_actual = datetime.now()
-        try:
-            # Agregar la columna de fecha de extracción al DataFrame
-            df["f_extraccion"] = fecha_actual
-            print("Se creó el DataFrame con columna de fecha de extracción")
-        except Exception as e:
-            print(f"Error al preparar el DataFrame: {e}")
-            return
-
         try:
             # Insertar el DataFrame en la base de datos
-            df.to_sql(nombre_tabla, con=self.conection, schema=self.schema, if_exists=tipo_insert, index=False)
+            df.to_sql(
+                nombre_tabla,
+                con=self.conection,
+                schema=self.schema,
+                if_exists=tipo_insert,
+                index=False,
+            )
             print(f"Se insertó correctamente en {nombre_tabla}")
         except SQLAlchemyError as e:
             print(f"No se pudo insertar en {nombre_tabla}. Error: {e}")
