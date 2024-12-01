@@ -22,3 +22,10 @@ pip install -r requirements.txt
 
 4. Ejecutar la aplicación:
 python ejecucion.py
+
+Graficos analisis de datos:
+Grafico 1: Información general, precio promedio por marca y capacidad GB
+[![graficos-1.png](https://i.postimg.cc/wj79yLxq/graficos-1.png)](https://postimg.cc/qNVPWtCS)
+
+Grafico 2: OS y cantidad productos por marca.
+[![graficos-2.png](https://i.postimg.cc/vmFCYVcS/graficos-2.png)](https://postimg.cc/mPjmVh3Q)
