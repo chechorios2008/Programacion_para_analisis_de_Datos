@@ -1,4 +1,4 @@
-Proyecto: Extracción de Datos de Productos en Tienda Virtual de productos de tecnologia
+Proyecto: Extracción de Datos en Tienda Virtual de productos de tecnologia
 
 Descripción
 Este proyecto tiene como objetivo automatizar la extracción de información relevante sobre productos de la tienda en línea Agaval. Utilizando técnicas de web scraping, se recopilan datos como precio, descripción, categoría y disponibilidad, y se almacenan en una base de datos para su posterior análisis.
